@@ -1,4 +1,17 @@
-﻿@*@model List<PersonVM>*@
+﻿@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+
+
+@if (Culture == "ar-EG")
+{
+    <link href="~/Ar.css" rel="stylesheet" />
+}
+else
+{
+    <link href="~/En.css" rel="stylesheet" />
+}
+@*@model List<PersonVM>*@
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Person> signInManager
  @{var userinfo = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);}
@@ -51,7 +64,33 @@
                 <a class="dropdown-item"  asp-controller="Account" asp-action="LogOff" asp-route-id="@userinfo.Id">
                     <i class="uil uil-signout"></i>Logout
                 </a>
-               
+
+                @if (Culture == "ar-EG")
+                {
+                    <li>
+                        <a class="dropdown-item d-flex justify-content-between"
+                           href="@Url.Action("SetLanguage", "Language", new {
+                                                              culture = "en-US",
+                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                          })">
+
+                            <span> <img src="/Dashboard/Images/usa.png" width="50" height="50" /> &nbsp; @SharedLocalizer["English"]</span>
+                        </a>
+                    </li>
+                }
+                else 
+                {
+                    <li>
+                        <a class="dropdown-item d-flex justify-content-between"
+                           href="@Url.Action("SetLanguage", "Language", new {
+                                                              culture = "ar-EG",
+                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                          })">
+
+                            <span><img src="/Dashboard/Images/Egypt.png" width="50" height="50" /> &nbsp;@SharedLocalizer["Arabic"]</span>
+                        </a>
+                    </li>
+                }
 
             </div>
         </div>

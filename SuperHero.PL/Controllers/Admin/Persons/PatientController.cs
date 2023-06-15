@@ -173,8 +173,6 @@ namespace SuperHero.PL.Controllers.Admin.Persons
            
         }
         #endregion
-
-       
-
+      
     }
 }
