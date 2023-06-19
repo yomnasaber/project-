@@ -1,4 +1,17 @@
-﻿<header>
+﻿@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+
+
+@if (Culture == "ar-EG")
+{
+    <link href="~/Ar.css" rel="stylesheet" />
+}
+else
+{
+    <link href="~/En.css" rel="stylesheet" />
+}
+<header>
     <div id="logo">
         <a style=" text-decoration:none;" href="#">
             <span id="span1">Super</span><span id="span2">Heros</span>
@@ -15,8 +28,47 @@
             <li><a style=" text-decoration:none;" href="#">contact</a></li>
            
             <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none">Login</a></li>
+            <!--Start Language -->
+            <li class="dropdown">
+               
+                <ul class="dropdown-menu">
 
+                    <li >
+
+                        @if (Culture == "ar-EG")
+                        {
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-between"
+                               href="@Url.Action("SetLanguage", "Language", new {
+                                                              culture = "en-US",
+                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                          })">
+
+                                <span> <img src="/Dashboard/Images/usa.png" width="50" height="50" /> &nbsp; @SharedLocalizer["English"]</span>
+                            </a>
+                        </li>
+                        }
+                        else
+                        {
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-between"
+                               href="@Url.Action("SetLanguage", "Language", new {
+                                                              culture = "ar-EG",
+                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                          })">
+
+                                <span><img src="/Dashboard/Images/Egypt.png" width="50" height="50" /> &nbsp;@SharedLocalizer["Arabic"]</span>
+                            </a>
+                        </li>
+                        }
+                       
+                    </li>
+                   
+                </ul>
+            </li>
+            <!--End Language -->
         </ul>
+        
     </nav>
     <div id="bars" onclick="toggle()">
         <div class="bar b"></div>
@@ -24,3 +76,11 @@
         <div class="bar b"></div>
     </div>
 </header>
+<style>
+    .dropdown-menu {
+        margin-top: -40px !important;
+        margin-left: -30px;
+    }
+
+   
+</style>
