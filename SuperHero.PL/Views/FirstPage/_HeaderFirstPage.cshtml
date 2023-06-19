@@ -1,8 +1,6 @@
 ﻿@{
     var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
 }
-
-
 @if (Culture == "ar-EG")
 {
     <link href="~/Ar.css" rel="stylesheet" />
@@ -31,7 +29,7 @@ else
             <!--Start Language -->
             <li class="dropdown">
                
-                <ul class="dropdown-menu">
+                <ul @*class="dropdown-menu"*@>
 
                     <li >
 
@@ -57,7 +55,7 @@ else
                                                               returnUrl = Context.Request.Path + Context.Request.QueryString
                                                           })">
 
-                                <span><img src="/Dashboard/Images/Egypt.png" width="50" height="50" /> &nbsp;@SharedLocalizer["Arabic"]</span>
+                                <span><img src="/Dashboard/Images/Egypt.png" width="50" height="50" style="margin-top: -4px;" /> &nbsp;@SharedLocalizer["Arabic"]</span>
                             </a>
                         </li>
                         }
