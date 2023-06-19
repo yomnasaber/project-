@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CreatePerson>
 @inject SignInManager<Person> signInManager
 @{
-    ViewData["Title"] = "GetAll";
+    ViewData["Title"] = SharedLocalizer["GetAll"];
     Layout = "~/Views/AdminLayout/_Layout.cshtml";
 }
 @section CSS{
@@ -14,13 +14,13 @@
 }
 
 
-    <a data-bs-toggle="dropdown" aria-expanded="false" class="btn1 third col-sm-3  me-2 " > &nbsp; &nbsp; &nbsp;<i class="uil uil-create-dashboard "></i> &nbsp; Create</a>
+<a data-bs-toggle="dropdown" aria-expanded="false" class="btn1 third col-sm-3  me-2 "> &nbsp; &nbsp; &nbsp;<i class="uil uil-create-dashboard "></i> &nbsp; @SharedLocalizer["Create"]</a>
     <ul class="nav-links dropdown-menu  col-sm-3  me-2" aria-labelledby="dropdownMenuLink" style="padding-left:0px;text-align:center">
 
-        <li><a class="dropdown-item" asp-action="Registration" asp-controller="Patient"><i class="uil uil-user"></i> &nbsp; &nbsp; &nbsp;Patient</a></li>
-        <li><a class="dropdown-item" asp-action="CreateDonner" asp-controller="Donner"><i class="uil uil-usd-circle"></i> &nbsp; &nbsp; &nbsp;Donner</a></li>
-        <li><a class="dropdown-item" asp-action="CreateDoctor" asp-controller="Doctor"><i class="uil uil-stethoscope"></i> &nbsp; &nbsp; &nbsp;Doctor</a></li>
-        <li><a class="dropdown-item" asp-action="CreateTrainer" asp-controller="Trainer"><i class="uil uil-presentation-edit"></i></i> &nbsp; &nbsp; &nbsp;Trainer</a></li>
+    <li><a class="dropdown-item" asp-action="Registration" asp-controller="Patient"><i class="uil uil-user"></i> &nbsp; &nbsp; &nbsp;@SharedLocalizer["Patient"]</a></li>
+    <li><a class="dropdown-item" asp-action="CreateDonner" asp-controller="Donner"><i class="uil uil-usd-circle"></i> &nbsp; &nbsp; &nbsp;@SharedLocalizer["Donner"]</a></li>
+    <li><a class="dropdown-item" asp-action="CreateDoctor" asp-controller="Doctor"><i class="uil uil-stethoscope"></i> &nbsp; &nbsp; &nbsp;@SharedLocalizer["Doctor"]</a></li>
+    <li><a class="dropdown-item" asp-action="CreateTrainer" asp-controller="Trainer"><i class="uil uil-presentation-edit"></i></i> &nbsp; &nbsp; &nbsp;@SharedLocalizer["Trainer"]</a></li>
     </ul>
     <br />
     <br />
@@ -28,20 +28,20 @@
     <thead>
         <tr class="tr-header">
 
-            <th>Profile</th>
+            <th>@SharedLocalizer["Profile"]</th>
 
-            <th>UserName</th>  
-            
-            <th>Person Type</th>
+            <th>@SharedLocalizer["UserName"]</th>
 
-            <th>IsDelete</th>  
-            
-            <th>Gender</th>
+            <th>@SharedLocalizer["Person Type"]</th>
 
-            <th>District</th>
+            <th>@SharedLocalizer["IsDelete"]</th>
+
+            <th>@SharedLocalizer["Gender"]</th>
+
+            <th>@SharedLocalizer["District"]</th>
 
                
-            <th>Action</th>
+            <th>@SharedLocalizer["Action"]</th>
             
             
         </tr>
@@ -102,14 +102,14 @@
                     <div class="dropdown show">
                         <p class="btn btn-outline-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="uil uil-angle-down"></i>
-                            Action
+                            @SharedLocalizer["Action"]
                         </p>
                         <div class="dropdown-menu align-items-center " aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item ancor btn btn-primary" asp-action="Edite" asp-controller="Person" asp-route-id="@item.Id">  
-                               Edite
+                            <a class="dropdown-item ancor btn btn-primary" asp-action="Edite" asp-controller="Person" asp-route-id="@item.Id">
+                                @SharedLocalizer["Edite"]
                             </a>
                             <a style="text-align: center" class="dropdown-item px-3 js-toggle-status" href="javascript:;" data-id="@item.Id">
-                               Toggel Status
+                                @SharedLocalizer["Toggel Status"] 
                             </a>
                         </div>
                     </div>

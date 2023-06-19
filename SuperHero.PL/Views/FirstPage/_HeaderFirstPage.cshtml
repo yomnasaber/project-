@@ -20,12 +20,12 @@ else
             <i class="fa fa-times" aria-hidden="true" onclick="toggle()"></i>
         </div>
         <ul>
-            <li><a style=" text-decoration:none;" href="#">home</a></li>
-            <li><a style=" text-decoration:none;" href="#">Problem</a></li>
-            <li><a style=" text-decoration:none;" href="#">about</a></li>
-            <li><a style=" text-decoration:none;" href="#">contact</a></li>
+            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["Home"]</a></li>
+            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["Problem"]</a></li>
+            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["about"]</a></li>
+            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["contact"]</a></li>
            
-            <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none">Login</a></li>
+            <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none">@SharedLocalizer["Login"]</a></li>
             <!--Start Language -->
             <li class="dropdown">
                
@@ -42,7 +42,7 @@ else
                                                               returnUrl = Context.Request.Path + Context.Request.QueryString
                                                           })">
 
-                                <span> <img src="/Dashboard/Images/usa.png" width="50" height="50" /> &nbsp; @SharedLocalizer["English"]</span>
+                                <span> <img src="/FirstPage/Image/usa.jpg" width="50" height="50" /> &nbsp; @SharedLocalizer["English"]</span>
                             </a>
                         </li>
                         }
@@ -55,7 +55,7 @@ else
                                                               returnUrl = Context.Request.Path + Context.Request.QueryString
                                                           })">
 
-                                <span><img src="/Dashboard/Images/Egypt.png" width="50" height="50" style="margin-top: -4px;" /> &nbsp;@SharedLocalizer["Arabic"]</span>
+                                <span><img src="/FirstPage/Image/Egypt.jpg" width="50" height="50" /> &nbsp;@SharedLocalizer["Arabic"]</span>
                             </a>
                         </li>
                         }

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="*" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="about" xml:space="preserve">
+    <value>about</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
@@ -195,6 +201,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>ConfirmPassword</value>
   </data>
+  <data name="contact" xml:space="preserve">
+    <value>contact</value>
+  </data>
   <data name="Course" xml:space="preserve">
     <value>Course</value>
   </data>
@@ -221,6 +230,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Discover" xml:space="preserve">
+    <value>Discover</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>District</value>
@@ -267,6 +279,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Email Required" xml:space="preserve">
+    <value>Email Required</value>
+  </data>
   <data name="False" xml:space="preserve">
     <value>False</value>
   </data>
@@ -275,6 +290,9 @@
   </data>
   <data name="FullName" xml:space="preserve">
     <value>FullName</value>
+  </data>
+  <data name="FullName required and Length Max 30" xml:space="preserve">
+    <value>FullName required and Length Max 30</value>
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
@@ -303,6 +321,9 @@
   <data name="Images" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="Invalid Email" xml:space="preserve">
+    <value>Invalid Email</value>
+  </data>
   <data name="IsActive" xml:space="preserve">
     <value>IsActive</value>
   </data>
@@ -315,11 +336,17 @@
   <data name="Like" xml:space="preserve">
     <value>Like</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="Male" xml:space="preserve">
     <value>Male</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Name Required" xml:space="preserve">
+    <value>Name Required</value>
   </data>
   <data name="NameCourse" xml:space="preserve">
     <value>NameCourse</value>
@@ -336,6 +363,18 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Password is required" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="Password required" xml:space="preserve">
+    <value>Password required</value>
+  </data>
+  <data name="Password should be idintical" xml:space="preserve">
+    <value>Password should be idintical</value>
+  </data>
+  <data name="PasswordHash" xml:space="preserve">
+    <value>PasswordHash</value>
+  </data>
   <data name="Patient" xml:space="preserve">
     <value>Patient</value>
   </data>
@@ -344,6 +383,9 @@
   </data>
   <data name="PersonType" xml:space="preserve">
     <value>Person Type</value>
+  </data>
+  <data name="Please Enter Range in 30 ch" xml:space="preserve">
+    <value>Please Enter Range in 30 ch</value>
   </data>
   <data name="Post" xml:space="preserve">
     <value>Post</value>
@@ -359,6 +401,9 @@
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>
+  </data>
+  <data name="Problem" xml:space="preserve">
+    <value>Problem</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
@@ -393,6 +438,18 @@
   <data name="Sign Out" xml:space="preserve">
     <value>Sign Out</value>
   </data>
+  <data name="The Email field is required" xml:space="preserve">
+    <value>The Email field is required</value>
+  </data>
+  <data name="The FullName field is required" xml:space="preserve">
+    <value>The FullName field is required</value>
+  </data>
+  <data name="This field is required" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="Toggel Status" xml:space="preserve">
+    <value>Toggel Status</value>
+  </data>
   <data name="Trainer" xml:space="preserve">
     <value>Trainer</value>
   </data>
@@ -411,8 +468,14 @@
   <data name="UpdateTime" xml:space="preserve">
     <value>UpdateTime</value>
   </data>
+  <data name="Upload File" xml:space="preserve">
+    <value>Upload File</value>
+  </data>
   <data name="UserName" xml:space="preserve">
     <value>UserName</value>
+  </data>
+  <data name="UserName required" xml:space="preserve">
+    <value>UserName required</value>
   </data>
   <data name="View Profile" xml:space="preserve">
     <value>View Profile</value>
