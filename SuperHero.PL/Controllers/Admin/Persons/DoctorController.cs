@@ -21,10 +21,11 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         private readonly IBaseRepsoratory<District> district;
         private readonly IBaseRepsoratory<City> city;
         private readonly IBaseRepsoratory<Governorate> governorate;
+        private IConfiguration Configuration;
         #endregion
 
         #region Ctor
-        public DoctorController(UserManager<Person> userManager, IMapper mapper, SignInManager<Person> signInManager, RoleManager<IdentityRole> roleManager, IServiesRep servis, IBaseRepsoratory<Person> person, IBaseRepsoratory<District> district, IBaseRepsoratory<City> city, IBaseRepsoratory<Governorate> governorate)
+        public DoctorController(UserManager<Person> userManager, IConfiguration Configuration, IMapper mapper, SignInManager<Person> signInManager, RoleManager<IdentityRole> roleManager, IServiesRep servis, IBaseRepsoratory<Person> person, IBaseRepsoratory<District> district, IBaseRepsoratory<City> city, IBaseRepsoratory<Governorate> governorate)
         {
             this.userManager = userManager;
             this.mapper = mapper;
@@ -35,6 +36,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             this.district = district;
             this.city = city;
             this.governorate = governorate;
+            this.Configuration = Configuration;
         }
         #endregion
 
@@ -110,7 +112,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             {
                 if (ModelState.IsValid)
                 {
-                   //Call Function To Update Doctor 
+                    //Call Function To Update Doctor 
                     await servis.Update(model);
                     //send Message Sucess
                     TempData["Message"] = "saved Successfuly";
@@ -135,7 +137,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         public async Task<IActionResult> nearDoctor()
         {
             //Get Person Profile By include Adress (District - City - Governate) 
-            var data = await servis.GetPersonInclud("district",(await signInManager.UserManager.FindByNameAsync(User.Identity.Name)).Id);
+            var data = await servis.GetPersonInclud("district", (await signInManager.UserManager.FindByNameAsync(User.Identity.Name)).Id);
             //Map Profile
             var Patient = mapper.Map<CreatePerson>(data);
             //Get Near Doctor BY Using Person Profile Adress
@@ -158,27 +160,38 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         {
             try
             {
-                //Add Doctor Image
-                model.Image = FileUploader.UploadFile("Imgs", model.ImageName);
-                //Add Doctor
-                var result = await userManager.CreateAsync(await Service.Add(model, 1), model.PasswordHash);
-                //Get Doctor By Name
-                var Doctor = await servis.GetBYUserName(model.UserName);
-                //Get Role Doctor
-                var role = await roleManager.FindByNameAsync(AppRoles.Doctor);
-                //Add Doctor in table Role
-                var result1 = await userManager.AddToRoleAsync(Doctor, role.Name);
+                if (await servis.GetMedicalSyndicate(model.doctor.MedicalSyndicate))
+                {
+                    //Add Doctor Image
+                    model.Image = FileUploader.UploadFile("Imgs", model.ImageName);
+                    //Add Doctor
+                    var result = await userManager.CreateAsync(await Service.Add(model, 1), model.PasswordHash);
+                    //Get Doctor By Name
+                    var Doctor = await servis.GetBYUserName(model.UserName);
+                    //Get Role Doctor
+                    var role = await roleManager.FindByNameAsync(AppRoles.Doctor);
+                    //Add Doctor in table Role
+                    var result1 = await userManager.AddToRoleAsync(Doctor, role.Name);
 
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("", item.Description);
+
+                        if (await SendConfitmEmail(model.Email))
+                        {
+                            return RedirectToAction("SuccessRegistration");
+                        }
+                        return RedirectToAction("Login", "Account");
+
+
+                    }
+
+                    else
+                    {
+                        foreach (var item in result.Errors)
+                        {
+                            ModelState.AddModelError("", item.Description);
+                        }
                     }
                 }
 
@@ -193,6 +206,81 @@ namespace SuperHero.PL.Controllers.Admin.Persons
 
         }
         #endregion
+
+
+        #region ConfirmEmail
+
+        public IActionResult SuccessRegistration()
+        {
+            return PartialView("SuccessRegistration");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+
+                var res = await userManager.ConfirmEmailAsync(user, token);
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return RedirectToAction(nameof(AccessDenied));
+            }
+
+
+        }
+        #endregion
+
+        #region AccessDenied
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+        #endregion
+        #region Private Methods
+
+        private async Task<bool> SendConfitmEmail(string Email)
+        {
+            var usr = await userManager.FindByEmailAsync(Email);
+            if (usr != null)
+            {
+                var host = Configuration.GetValue<string>("Smtp:Server");
+                var Port = Configuration.GetValue<int>("Smtp:Port");
+                var fromEmail = Configuration.GetValue<string>("Smtp:UserName");
+                var Password = Configuration.GetValue<string>("Smtp:Password");
+
+
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(usr);
+                var confiramtionLink = Url.Action(nameof(ConfirmEmail), "Doctor", new { token, email = usr.Email }, Request.Scheme);
+                EmailSetting email = new EmailSetting
+                {
+                    ToEmail = usr.Email,
+                    Name = usr.FullName,
+
+                };
+                var TempHtml = $"<a href='{confiramtionLink}'>ConfrmLink</a>";
+
+                var res = MaullSetting.MailSender(host, Port, fromEmail, Password, email, TempHtml);
+                if (res != null)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
 
     }
 }

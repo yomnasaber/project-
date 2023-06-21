@@ -53,7 +53,7 @@
             <li >
                 <a active-when="Person" asp-action="GetAll" asp-controller="Person">
                     <i class="uil uil-user-circle"></i>
-                    <span class="link-name">Person</span>
+                    <span class="link-name">@SharedLocalizer["Person"]</span>
                 </a>
                 
             </li>
@@ -61,27 +61,27 @@
             <li  data-bs-toggle="dropdown" aria-expanded="false">
                 <a asp-controller="Categories" active-when="Categories">
                     <i class="uil uil-files-landscapes icon"></i>
-                    <span class="link-name">Courses</span>
+                    <span class="link-name">@SharedLocalizer["Courses"]</span>
                 </a>
                 
             </li>
                <ul class="nav-links dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding-left:0px;z-index:12939494">
 
-                <li><a active-when="Categories" class="dropdown-item" asp-action="GetAll" asp-controller="Categories"><i class="uil uil-servers"></i>Category</a></li>
-                <li><a active-when="Course" class="dropdown-item" asp-action="GetAll" asp-controller="Course"><i class="uil uil-presentation-edit"></i>Course</a></li>
-                <li><a active-when="Lesson" class="dropdown-item" asp-action="GetAll" asp-controller="Lesson"><i class="uil uil-layer-group"></i>Lesson</a></li>
+                <li><a active-when="Categories" class="dropdown-item" asp-action="GetAll" asp-controller="Categories"><i class="uil uil-servers"></i>@SharedLocalizer["Category"]</a></li>
+                <li><a active-when="Course" class="dropdown-item" asp-action="GetAll" asp-controller="Course"><i class="uil uil-presentation-edit"></i>@SharedLocalizer["Course"]</a></li>
+                <li><a active-when="Lesson" class="dropdown-item" asp-action="GetAll" asp-controller="Lesson"><i class="uil uil-layer-group"></i>@SharedLocalizer["Lesson"]</a></li>
 
                 </ul>
             <li >
                 <a active-when="Post" asp-action="GetAll" asp-controller="Post">
                     <i class="uil uil-search"></i>
-                    <span class="link-name">Post</span>
+                    <span class="link-name">@SharedLocalizer["Post"]</span>
                 </a>
             </li>
             <li>
                 <a active-when="Group" asp-action="GetAll" asp-controller="Group">
                     <i class="uil uil-users-alt"></i>
-                    <span class="link-name">Group</span>
+                    <span class="link-name">@SharedLocalizer["Group"]</span>
                 </a>
             </li>
           @*  <ul class="nav-links dropdown-menu" aria-labelledby="dropdownMenuLink" style="padding-left:0px">
@@ -94,25 +94,25 @@
             <li>
                 <a asp-action="GetAll" asp-controller="Roles">
                     <i class="uil uil-chart icon"></i>
-                    <span class="link-name">Roles</span>
+                    <span class="link-name">@SharedLocalizer["Roles"]</span>
                 </a>
             </li>
             <li>
                 <a href="#">
                     <i class="uil uil-thumbs-up icon"></i>
-                    <span class="link-name">Like</span>
+                    <span class="link-name">@SharedLocalizer["Like"]</span>
                 </a>
             </li>
             <li>
                 <a asp-action="Course" asp-controller="CourseView">
                     <i class="uil uil-comments icon"></i>
-                    <span class="link-name">Course</span>
+                    <span class="link-name">@SharedLocalizer["Course"]</span>
                 </a>
             </li>
             <li>
                 <a asp-action="GetAll" asp-controller="City">
                     <i class="uil uil-globe"></i>
-                    <span class="link-name">Adress</span>
+                    <span class="link-name">@SharedLocalizer["Adress"]</span>
                 </a>
             </li>
         </ul>
@@ -130,7 +130,7 @@
             <li class="mode">
                 <a href="#">
                     <i class="uil uil-moon"></i>
-                    <span class="link-name">Dark Mode</span>
+                    <span class="link-name">@SharedLocalizer["Dark Mode"]</span>
                 </a>
 
                 <div class="mode-toggle">
