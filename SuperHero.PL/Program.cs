@@ -13,6 +13,7 @@ using SuperHero.BL.Reposoratory;
 using SuperHero.BL.Seeds;
 using SuperHero.DAL.Database;
 using SuperHero.DAL.Entities;
+using SuperHero.PL;
 using SuperHero.PL.Languages;
 using System.Globalization;
 
@@ -60,6 +61,10 @@ builder.Services.AddIdentityCore<Person>(options => options.SignIn.RequireConfir
                 .AddTokenProvider<DataProtectorTokenProvider<Person>>(TokenOptions.DefaultProvider);
 
 
+//SignalR
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddSignalR();
 
 // Password and user name configuration
 
@@ -101,6 +106,12 @@ app.UseRequestLocalization(new RequestLocalizationOptions
                 new QueryStringRequestCultureProvider(),
                 new CookieRequestCultureProvider()
                 }
+});
+
+//AddSignalR
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chat");
 });
 
 app.UseHttpsRedirection();
