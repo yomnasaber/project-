@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SuperHero.BL.DomainModelVM;
 using SuperHero.BL.Helper;
 using SuperHero.BL.Interface;
 using SuperHero.BL.Seeds;
+using SuperHero.DAL.Entities;
+using System.Configuration;
 
 namespace SuperHero.PL.Controllers.Admin.Persons
 {
@@ -112,7 +115,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             {
                 if (ModelState.IsValid)
                 {
-                    //Call Function To Update Doctor 
+                   //Call Function To Update Doctor 
                     await servis.Update(model);
                     //send Message Sucess
                     TempData["Message"] = "saved Successfuly";
@@ -137,7 +140,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         public async Task<IActionResult> nearDoctor()
         {
             //Get Person Profile By include Adress (District - City - Governate) 
-            var data = await servis.GetPersonInclud("district", (await signInManager.UserManager.FindByNameAsync(User.Identity.Name)).Id);
+            var data = await servis.GetPersonInclud("district",(await signInManager.UserManager.FindByNameAsync(User.Identity.Name)).Id);
             //Map Profile
             var Patient = mapper.Map<CreatePerson>(data);
             //Get Near Doctor BY Using Person Profile Adress
@@ -164,19 +167,19 @@ namespace SuperHero.PL.Controllers.Admin.Persons
                 {
                     //Add Doctor Image
                     model.Image = FileUploader.UploadFile("Imgs", model.ImageName);
-                    //Add Doctor
-                    var result = await userManager.CreateAsync(await Service.Add(model, 1), model.PasswordHash);
-                    //Get Doctor By Name
-                    var Doctor = await servis.GetBYUserName(model.UserName);
-                    //Get Role Doctor
-                    var role = await roleManager.FindByNameAsync(AppRoles.Doctor);
-                    //Add Doctor in table Role
-                    var result1 = await userManager.AddToRoleAsync(Doctor, role.Name);
+                //Add Doctor
+                var result = await userManager.CreateAsync(await Service.Add(model, 1), model.PasswordHash);
+                //Get Doctor By Name
+                var Doctor = await servis.GetBYUserName(model.UserName);
+                //Get Role Doctor
+                var role = await roleManager.FindByNameAsync(AppRoles.Doctor);
+                //Add Doctor in table Role
+                var result1 = await userManager.AddToRoleAsync(Doctor, role.Name);
 
 
-                    if (result.Succeeded)
-                    {
-
+                if (result.Succeeded)
+                {
+                  
                         if (await SendConfitmEmail(model.Email))
                         {
                             return RedirectToAction("SuccessRegistration");
@@ -185,18 +188,18 @@ namespace SuperHero.PL.Controllers.Admin.Persons
 
 
                     }
-
-                    else
+               
+                else
+                {
+                    foreach (var item in result.Errors)
                     {
-                        foreach (var item in result.Errors)
-                        {
-                            ModelState.AddModelError("", item.Description);
-                        }
+                        ModelState.AddModelError("", item.Description);
+                    }
                     }
                 }
 
                 return PartialView("Registration", model);
-
+               
             }
             catch (Exception)
             {
@@ -240,6 +243,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             return View();
         }
         #endregion
+
         #region Private Methods
 
         private async Task<bool> SendConfitmEmail(string Email)
@@ -260,9 +264,10 @@ namespace SuperHero.PL.Controllers.Admin.Persons
                     ToEmail = usr.Email,
                     Name = usr.FullName,
 
+
+
                 };
                 var TempHtml = $"<a href='{confiramtionLink}'>ConfrmLink</a>";
-
                 var res = MaullSetting.MailSender(host, Port, fromEmail, Password, email, TempHtml);
                 if (res != null)
                 {

@@ -17,7 +17,7 @@
             <div class="col-md-8">
                 <a>@TempData["error"]</a>
                 <div asp-validation-summary="All"></div>
-                <form method="post" asp-controller="Doctor" asp-action="CreateDoctor" enctype="multipart/form-data">
+                <form method="post" asp-controller="Doctor" asp-action="CreateDoctor"enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-4 ">
                         </div>
@@ -55,7 +55,7 @@
                     <div class="mb-5">
                         <div class="form-floating mb-2">
                             <input type="text" class="form-control" placeholder="Name" asp-for="FullName" />
-                            <label>FullName</label>
+                            <label>Full Name</label>
                         </div>
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
@@ -106,8 +106,8 @@
                         <span asp-validation-for="doctor.Cv_Name" class="text-danger"></span>
                     </div>
                     <br />
-                    <br/>
-
+                    
+                 
                     <div class="mb-5">
                         <div class="form-floating mb-2">
                             <select asp-for="gender" class="form-select" aria-label="Default select example">
@@ -145,7 +145,7 @@
                         </div>
                     </div>
 
-
+                   
                     <br />
 
                     <center>
@@ -170,7 +170,7 @@
     <partial name="~/views/person/Partial/css.cshtml" />
     <link href="~/dashboard/lib/style.bundle.css" rel="stylesheet" />
 }
-@section JqueryValidation{
+    @section JqueryValidation{
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/registration/bootstrap/js/bootstrap.min.js"></script>

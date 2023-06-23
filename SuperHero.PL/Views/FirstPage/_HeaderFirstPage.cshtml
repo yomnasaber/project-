@@ -20,53 +20,52 @@ else
             <i class="fa fa-times" aria-hidden="true" onclick="toggle()"></i>
         </div>
         <ul>
-            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["Home"]</a></li>
-            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["Problem"]</a></li>
-            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["about"]</a></li>
-            <li><a style=" text-decoration:none;" href="#">@SharedLocalizer["contact"]</a></li>
-           
-            <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none">@SharedLocalizer["Login"]</a></li>
-            <!--Start Language -->
-            <li class="dropdown">
-               
-                <ul @*class="dropdown-menu"*@>
-
-                    <li >
+            <li><a style=" text-decoration:none;" href="#"> @SharedLocalizer["Home"]</a></li>
+            <li><a style=" text-decoration:none;" href="#"> @SharedLocalizer["Problem"]</a></li>
+            <li><a style=" text-decoration:none;" href="#"> @SharedLocalizer["about"]</a></li>
+            <li><a style=" text-decoration:none;" href="#"> @SharedLocalizer["contact"]</a></li>
+            <li>
+                <div class="dropdown">
+                    <i style="font-size:30px;color:#1EB2A6;cursor:pointer" class="fa-solid fa-language"></i>
+                   @* <i class="fa-solid fa-list dropbtn" onclick="myFunction()"></i>*@
+                    <div style="text-align:center" id="myDropdown" class="dropdown-content">
 
                         @if (Culture == "ar-EG")
                         {
-                        <li>
-                            <a class="dropdown-item d-flex justify-content-between"
-                               href="@Url.Action("SetLanguage", "Language", new {
-                                                              culture = "en-US",
-                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
-                                                          })">
+                            
+                                    <a class="dropdown-item d-flex justify-content-between"
+                                       href="@Url.Action("SetLanguage", "Language", new {
+                                                                              culture = "en-US",
+                                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                                          })">
 
-                                <span> <img src="/FirstPage/Image/usa.jpg" width="50" height="50" /> &nbsp; @SharedLocalizer["English"]</span>
-                            </a>
-                        </li>
+                                       @SharedLocalizer["English"]
+                                    </a>
+                            
                         }
                         else
                         {
-                        <li>
-                            <a class="dropdown-item d-flex justify-content-between"
-                               href="@Url.Action("SetLanguage", "Language", new {
-                                                              culture = "ar-EG",
-                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
-                                                          })">
+                            
+                                <a class="dropdown-item d-flex justify-content-between"
+                                   href="@Url.Action("SetLanguage", "Language", new {
+                                                                          culture = "ar-EG",
+                                                                          returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                                      })">
 
-                                <span><img src="/FirstPage/Image/Egypt.jpg" width="50" height="50" /> &nbsp;@SharedLocalizer["Arabic"]</span>
-                            </a>
-                        </li>
+                                    @SharedLocalizer["Arabic"]
+                                </a>
+                            
                         }
-                       
-                    </li>
-                   
-                </ul>
+                            @*<a style=""><i class="fa-solid fa-spell-check"></i>Arabic</a>
+                            <a ><i class="fa-solid fa-trash-can"></i> English</a>
+                       *@
+                    </div>
+                </div>
             </li>
-            <!--End Language -->
+
+            <li><a style=" text-decoration:none;" class="Register" data-toggle="modal" data-target="#exampleModal" style="text-decoration:none"> @SharedLocalizer["Login"]</a></li>
+
         </ul>
-        
     </nav>
     <div id="bars" onclick="toggle()">
         <div class="bar b"></div>
@@ -74,11 +73,3 @@ else
         <div class="bar b"></div>
     </div>
 </header>
-<style>
-    .dropdown-menu {
-        margin-top: -40px !important;
-        margin-left: -30px;
-    }
-
-   
-</style>

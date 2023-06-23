@@ -19,16 +19,4 @@
     <ProjectReference Include="..\SuperHero.BL\SuperHero.BL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Files\CVDoctors\" />
-    <Folder Include="wwwroot\Files\PDF\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\SocialPatient\ModelRating.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>
