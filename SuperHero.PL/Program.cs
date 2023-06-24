@@ -14,6 +14,7 @@ using SuperHero.BL.Seeds;
 using SuperHero.DAL.Database;
 using SuperHero.DAL.Entities;
 using SuperHero.PL;
+using SuperHero.PL.Hubs;
 using SuperHero.PL.Languages;
 using System.Globalization;
 
@@ -62,7 +63,7 @@ builder.Services.AddIdentityCore<Person>(options => options.SignIn.RequireConfir
 
 
 //SignalR
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddSignalR();
 
@@ -109,10 +110,12 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 });
 
 //AddSignalR
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<ChatHub>("/chat");
-});
+app.MapHub<ChatHub>("/chatHub");
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapHub<ChatHub>("/chatHub");
+//});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

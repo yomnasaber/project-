@@ -1,54 +1,28 @@
 ﻿@{
-    ViewData["Title"] = "Chat";
-    
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container" style="padding-top:80px;">
+    <div class="row">
+        <div class="col-md-6">
+            <span> Enter Your Name : </span><br />
+            <input type="text" id="txtUser" /><br />
+            <span> Enter Your Message : </span><br />
+            <textarea rows="10" cols="50" id="txtMessage"></textarea><br />
+            <button type="submit" id="btnSend" class="btn btn-info">Send Message</button>
+        </div>
 
-<hr />
-
-<div class="container">
-    <div>
-        <label> Your Name: </label>
-        <input type="text" id="displayname"/>
+        <div class="col-md-6">
+            <h3>Message List : </h3>
+            <ul id="list" class="alert alert-info">
+            </ul>
+        </div>
     </div>
 
-    <div class="mt-5">      
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send"/>
-    </div>
-
-    <div class="mt-3">
-        <ul id="discussion"></ul>
-    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@7.0.2/dist/browser/signal.min.js"></script>
+<script src="~/datatable/lib/jquery/dist/jquery.js"></script>
+<script src="~/chat/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 
-<script>
-    var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-    connection.start().catch(function (err){
-        return console.error(err.toString());
-    });
-
-    document.getElementById("sendmessage").addEventListener("click",function (event){
-
-        var user = document.getElementById("displayname").value;
-
-        var message = document.getElementById("message").value;
-
-        connection.invoke("sendmessage"), user, message).catch(function (err) {
-            return console.error(err.toString());
-        });
-
-       event.preventDefault();
-    });
-
-    connection.on("ReceiveMessage",function (user,message){
-        var encodedMsg = user +" : "+ message;
-        var li = document.createElement("li");
-
-        li.textContent = encodedMsg;
-        document.getElementById("discussion").appendChild(li);
-    });
-</script>
+<script src="~/chat/js/admin.js"></script>
