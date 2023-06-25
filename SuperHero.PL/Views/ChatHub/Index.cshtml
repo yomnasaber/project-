@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/AdminLayout/_Layout.cshtml";
 }
 
 <div class="container" style="padding-top:80px;">
@@ -9,13 +9,21 @@
             <span> Enter Your Name : </span><br />
             <input type="text" id="txtUser" /><br />
             <span> Enter Your Message : </span><br />
-            <textarea rows="10" cols="50" id="txtMessage"></textarea><br />
-            <button type="submit" id="btnSend" class="btn btn-info">Send Message</button>
+            <textarea rows="10" cols="40" id="txtMessage"></textarea><br />
+            <button type="submit" id="btnSend" class="btn btn-info">Send Message</button><br /><br />
+
+         
+            <input type="text" id="txtgroup" />
+            <button type="submit" id="btngroup" class="btn btn-info" >Join</button><br />
+           
+            <br />
+            <button type="submit" id="txtSendGroup" class="btn btn-info" >Send To Group</button><br />
+            
         </div>
 
         <div class="col-md-6">
             <h3>Message List : </h3>
-            <ul id="list" class="alert alert-info">
+            <ul id="list" class="alert alert-info"> 
             </ul>
         </div>
     </div>

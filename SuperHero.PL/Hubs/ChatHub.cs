@@ -8,5 +8,16 @@ namespace SuperHero.PL.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
+
+        public async Task JoinGroup(string group, string name)
+        {
+            await Clients.All.SendAsync("GroupMessage", name, group);
+        }
+
+        public async Task SendToGroup(string group, string name, string message)
+        {
+            await Clients.All.SendAsync("GroupSendToMessage", name, group, message);
+        }
+
     }
 }
