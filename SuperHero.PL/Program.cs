@@ -13,7 +13,6 @@ using SuperHero.BL.Reposoratory;
 using SuperHero.BL.Seeds;
 using SuperHero.DAL.Database;
 using SuperHero.DAL.Entities;
-using SuperHero.PL;
 using SuperHero.PL.Hubs;
 using SuperHero.PL.Languages;
 using System.Globalization;
@@ -31,7 +30,6 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(opt => {
 });
 
 
-
 // Enhancement ConnectionString
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -47,6 +45,11 @@ builder.Services.AddScoped(typeof(IBaseRepsoratory<>), typeof(BaseRepsoratory<>)
 builder.Services.AddScoped(typeof(IServiesRep), typeof(ServiesRep));
 // Identity Configuration
 
+//SignalR
+//builder.Services.AddControllersWithViews();
+
+builder.Services.AddSignalR();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
     options =>
@@ -61,11 +64,10 @@ builder.Services.AddIdentityCore<Person>(options => options.SignIn.RequireConfir
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddTokenProvider<DataProtectorTokenProvider<Person>>(TokenOptions.DefaultProvider);
 
+builder.Services.AddSession(opt =>
+opt.IdleTimeout = TimeSpan.FromMinutes(100)
+);
 
-//SignalR
-//builder.Services.AddControllersWithViews();
-
-builder.Services.AddSignalR();
 
 // Password and user name configuration
 
@@ -109,13 +111,10 @@ app.UseRequestLocalization(new RequestLocalizationOptions
                 }
 });
 
+app.UseSession();
 //AddSignalR
-app.MapHub<ChatHub>("/chatHub");
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapHub<ChatHub>("/chatHub");
-//});
+app.MapHub<ChatHub>("/chatHub");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
