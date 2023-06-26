@@ -55,10 +55,10 @@ namespace SuperHero.BL.Interface
         Task<List<Treatment>> GetAllTreatmentbyId(int userinfo);
         Task CreateTreatment(DoctorTreatment Treatment, string DoctorId);
         Task<List<Radiology>> GetAllRadiologybyId(int userinfo);
-
         Task CreateRadiology(DoctorRadiology Radiology, string DoctorId);
         Task CreateRadiologyBYPatient(DoctorRadiology Radiology);
         Task<bool> GetMedicalSyndicate(string NummberSyndicate);
+        Task<IEnumerable<ChatGroup>> GetAllChatGroup(int GroupId);
 
     }
 }

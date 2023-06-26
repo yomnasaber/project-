@@ -127,7 +127,6 @@ namespace FRYMA_SuperHero.BL.Reposoratory
             #endregion
         #endregion
 
-
         #region Update
         public async Task Update(T entity)
         {
@@ -136,13 +135,7 @@ namespace FRYMA_SuperHero.BL.Reposoratory
             
         }
 
-       
-
-
-
         #endregion
-
-
 
     }
 }

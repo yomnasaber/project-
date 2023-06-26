@@ -3,7 +3,7 @@ console.log(`SenderId: ${UserId}`);
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 /*start SendMessage*/
-connection.on("ReceiveMessage", function (user, message, Path, UserID) {
+connection.on("ReceiveMessage", function (user, message, Path,UserID,GroupId,PersonID) {
     var dateMsg = new Date();
     var dateMean = dateMsg.getHours() + ":" + dateMsg.getMinutes() + ":" + dateMsg.getUTCDate();
     //var ImgPath = document.getElementById("imgPath").value;
@@ -11,9 +11,9 @@ connection.on("ReceiveMessage", function (user, message, Path, UserID) {
     if (UserId != UserID) {
 
 
-
-        var msg =
-            ` <div class="d-flex flex-row justify-content-end mb-4" >
+   
+        var msg = 
+           ` <div class="d-flex flex-row justify-content-end mb-4" >
                                 <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
                                     <p class="small mb-0">${message}</p>
                                 </div>
@@ -25,15 +25,15 @@ connection.on("ReceiveMessage", function (user, message, Path, UserID) {
         var msg = ` <div class="d-flex flex-row justify-content-start mb-4">
                                 <img src="${Path}"
                                      alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                <div class="p-3 me-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
                                     <p class="small mb-0">
                                        ${message}
                                     </p>
                                 </div>
                             </div>`;
     }
-
-
+  
+  
 
 
     $("#list").append(msg);
@@ -46,15 +46,17 @@ $("#btnSend").on("click", function () {
     var message = $("#txtMessage").val();
     var Path = $("#imgPath").val();
     var UserId = $("#UserId").val();
-    connection.invoke("SendMessage", user, message, Path, UserId);
+    var Userinfo = $("#UserInfoID").val();
+    var GroupId = $("#groupID").val();
+    connection.invoke("SendMessage", user, message, Path, UserId, GroupId, Userinfo);
     $("#txtMessage").val('');
 });
 
 /*end SendMessage*/
 
 /*start JoinGroup*/
-connection.on("GroupMessage", function (name, group) {
-    var msg = name + " joinned " + group;
+connection.on("GroupMessage", function (name, group) {  
+    var msg = name + " joinned " + group; 
     var li = document.createElement("li");
     li.textContent = msg;
 
@@ -62,7 +64,7 @@ connection.on("GroupMessage", function (name, group) {
 });
 
 $("#btngroup").on("click", function () {
-    var name = $("#txtUser").val();
+    var name = $("#txtUser").val(); 
     var group = $("#txtgroup").val();
 
     connection.invoke("JoinGroup", group, name);
@@ -71,19 +73,19 @@ $("#btngroup").on("click", function () {
 /*end JoinGroup*/
 
 /*start GroupSendToMessage*/
-connection.on("GroupSendToMessage", function (group, name, message) {
-    var msg = name + "(" + group + "):" + message;
+connection.on("GroupSendToMessage", function (group,name, message) {
+    var msg = name + "(" + group + "):" + message; 
     var li = document.createElement("li");
     li.textContent = msg;
 
-    $("#list").prepend(li);
+    $("#list").prepend(li);  
 });
-
-$("#txtSendGroup").on("click", function () {
-
+ 
+$("#txtSendGroup").on("click", function () {    
+   
     var name = $("#txtUser").val();
-    var group = $("#txtgroup").val();
+    var group = $("#txtgroup").val(); 
     var message = $("#txtMessage").val();
-    connection.invoke("SendToGroup", name, group, message);
+    connection.invoke("SendToGroup", name, group, message);  
 });
 /*end GroupSendToMessage*/

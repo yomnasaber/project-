@@ -65,5 +65,6 @@ namespace SuperHero.DAL.Database
         public DbSet<MedicalSyndicate> MedicalSyndicates { get; set; }
         public DbSet<BankAccount> bankAccounts { get; set; }
         public DbSet<Payment> payments { get; set; }
+        public DbSet<ChatGroup> ChatGroups { get; set; }
     }
 }

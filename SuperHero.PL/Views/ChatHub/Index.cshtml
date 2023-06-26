@@ -1,4 +1,5 @@
-﻿﻿@using Microsoft.AspNetCore.Identity;
+﻿@model IEnumerable<ChatGroup>
+@using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Person> signInManager
 @{
     ViewData["Title"] = "Index";
@@ -7,28 +8,28 @@
 
     var UserId = Context.Session.GetInt32("UserId");
 }
-
+ 
 @*<div class="container" style="padding-top:80px;">
     <div class="row">
         <div class="col-md-6">
-
+           
             <input hidden type="text" value="@userinfo.FullName" id="txtUser" /><br />
             <span> Enter Your Message : </span><br />
             <textarea rows="10" cols="40" id="txtMessage"></textarea><br />
             <button type="submit" id="btnSend" class="btn btn-info">Send Message</button><br /><br />
 
-
+         
             <input type="text" id="txtgroup" />
             <button type="submit" id="btngroup" class="btn btn-info" >Join</button><br />
-
+           
             <br />
             <button type="submit" id="txtSendGroup" class="btn btn-info" >Send To Group</button><br />
-
+            
         </div>
 
         <div class="col-md-6">
             <h3>Message List : </h3>
-            <ul id="list" class="alert alert-info">
+            <ul id="list" class="alert alert-info"> 
             </ul>
         </div>
     </div>
@@ -44,19 +45,46 @@
                     <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                          style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
                         <i class="fas fa-angle-left"></i>
-                        <p class="mb-0 fw-bold">Live chat</p>
+                        <p class="mb-0 fw-bold">@TempData["GroupName"]</p>
                         <i class="fas fa-times"></i>
                     </div>
                     <div class="card-body">
 
+                      @foreach (var item in Model)
+                     {
+                            if(userinfo.Id != item.PersonId)
+                            {
+                                <div class="d-flex flex-row justify-content-end mb-4">
+                                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                                        <p class="small mb-0">@item.Message</p>
+                                    </div>
+                                    <img src="~/Files/Imgs/@item.Person.Image"
+                                         alt="avatar 1" style="width: 45px; height: 100%;">
+                                </div>
+                            }else{
+                                <div class="d-flex flex-row justify-content-start mb-4">
+                                    <img src="~/Files/Imgs/@item.Person.Image"
+                                         alt="avatar 1" style="width: 45px; height: 100%;">
+                                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                        <p class="small mb-0">
+                                            @item.Message
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+
+                              
+                     }
                         <div id="list">
+                           
                         </div>
 
-
+                         
 
                         <div class="form-outline">
                             <div class="row">
                                 <div class="col-sm-1">
+
                                 </div>
                                 <div class="col-sm-8 ">
                                     <textarea class="form-control" id="txtMessage" rows="4"></textarea>
@@ -66,11 +94,13 @@
                                 </div>
                             </div>
                             <input hidden type="text" value="@userinfo.FullName" id="txtUser" />
-
+                            
                             <input hidden type="text" value="/files/imgs/@userinfo.Image" id="imgPath" />
                             <input hidden type="text" value="@UserId" id="UserId" />
+                            <input hidden type="text" value="@userinfo.Id" id="UserInfoID" />
+                            <input hidden type="text" value="@TempData["GroupID"]" id="groupID" />
                         </div>
-
+                      
                     </div>
                 </div>
             </div>

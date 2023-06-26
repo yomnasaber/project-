@@ -243,7 +243,6 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             return View();
         }
         #endregion
-
         #region Private Methods
 
         private async Task<bool> SendConfitmEmail(string Email)

@@ -33,16 +33,16 @@ else
                         @if (Culture == "ar-EG")
                         {
                             
-                                    <a class="dropdown-item d-flex justify-content-between"
-                                       href="@Url.Action("SetLanguage", "Language", new {
-                                                                              culture = "en-US",
-                                                                              returnUrl = Context.Request.Path + Context.Request.QueryString
-                                                                          })">
+                                <a class="dropdown-item d-flex justify-content-between"
+                                   href="@Url.Action("SetLanguage", "Language", new {
+                                                                          culture = "en-US",
+                                                                          returnUrl = Context.Request.Path + Context.Request.QueryString
+                                                                      })">
 
-                                       @SharedLocalizer["English"]
-                                    </a>
+                                 @SharedLocalizer["English"]
+                                </a>
                             
-                        }
+                                    }
                         else
                         {
                             

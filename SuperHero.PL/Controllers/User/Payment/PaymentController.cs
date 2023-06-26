@@ -12,7 +12,6 @@ namespace SuperHero.PL.Controllers.User.Payment
         
         private readonly SignInManager<Person> signInManager;
         #endregion
-
         #region ctor
         public PaymentController(IConfiguration Configuration , SignInManager<Person> signInManager, UserManager<Person> userManager)
         {
@@ -21,8 +20,6 @@ namespace SuperHero.PL.Controllers.User.Payment
             this.userManager = userManager;
         }
         #endregion
-
-        #region Pay
         [HttpGet]
         public IActionResult Pay()
         {
@@ -51,8 +48,6 @@ namespace SuperHero.PL.Controllers.User.Payment
         {
             return PartialView("Payment", TempData["Bank"]);
         }
-        #endregion
-
         #region ConfirmEmail
 
         public IActionResult SuccessRegistration()
@@ -85,7 +80,6 @@ namespace SuperHero.PL.Controllers.User.Payment
             return View();
         }
         #endregion
-
         #region Private Methods
 
         private async Task<bool> SendConfitmEmail(string Email)
