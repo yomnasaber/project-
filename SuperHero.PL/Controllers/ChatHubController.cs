@@ -8,29 +8,38 @@ namespace SuperHero.PL.Controllers
         private readonly IServiesRep serviesRep;
         private readonly SignInManager<Person> signInManager;
         private readonly IBaseRepsoratory<Group> Group;
-        public ChatHubController(IServiesRep serviesRep, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group) 
-        { 
+        public ChatHubController(IServiesRep serviesRep, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group)
+        {
             this.serviesRep = serviesRep;
             this.signInManager = signInManager;
             this.Group = Group;
         }
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult> Index(int id)
         {
             Random randomNumber = new Random();
-            int RnadomSession = randomNumber.Next(0, 955121135); 
+            int RnadomSession = randomNumber.Next(0, 955121135);
             HttpContext.Session.SetInt32("UserId", RnadomSession);
             var PersonProfile = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
-            var FindIn =await serviesRep.FindById(PersonProfile.Id, 3);
-            if (FindIn != null)
+            var FindIn = await serviesRep.FindById(PersonProfile.Id, id);
+            var data = await serviesRep.FindAllGroupById(PersonProfile.Id);
+            if (data.Count() != 0)
             {
-                var Chat = await serviesRep.GetAllChatGroup(3);
-                var GroupName = await Group.GetByID(3);
-                TempData["GroupName"] = GroupName.Name;
-                TempData["GroupID"] = GroupName.ID;
-                return View(Chat);
+                if (FindIn != null)
+                {
+                    var Chat = await serviesRep.GetAllChatGroup(id);
+                    var GroupName = await Group.GetByID(id);
+                    TempData["GroupName"] = GroupName.Name;
+                    TempData["GroupID"] = GroupName.ID;
+                    ListGroupVM listGroupVM = new ListGroupVM()
+                    {
+                        Chat = Chat,
+                        Groups = data
+                    };
+                    return View(listGroupVM);
+                }
             }
             return RedirectToAction("GetAll", "Person");
-            
+
         }
         public IActionResult Index1()
         {
