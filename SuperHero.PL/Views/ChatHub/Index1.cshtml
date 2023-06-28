@@ -1,5 +1,89 @@
-﻿@{
+﻿@model MessageVM
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Person> signInManager
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/_Layout.cshtml";
-    
+    var userinfo = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+
+    var UserId = Context.Session.GetInt32("UserId");
 }
+
+<div class="row">
+    <div class="col-md-12" id="chat">
+        @if (Model!=null)
+        {
+            @foreach (var message in Model.UserName)
+            {
+                string containerClass, timePosition, textAlign, contcolor, offset;
+                if (@userinfo.UserName==message.ToString())
+                {
+                    containerClass = "container darker";
+                    timePosition = "time-right text-light";
+                    textAlign = "text-right text-white";
+                    contcolor = "bg-primary";
+                    offset = "col-md-6 offset-md-6";
+                }
+                else
+                {
+                    containerClass = "container ";
+                    timePosition = "time-left";
+                    textAlign = "text-left";
+                    contcolor = "bg-light";
+                    offset = "";
+                }
+
+                
+            }
+        }
+    </div>
+</div>
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-11 col-lg-11 col-xl-11">
+
+                <div class="card" id="chat1" style="border-radius: 15px;">
+                    <div style="background:#1eb2a6" class="card-header d-flex justify-content-between align-items-center p-3  text-white border-bottom-0"
+                         style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                        <i class="fas fa-angle-left"></i>
+                        <p class="mb-0 fw-bold">@TempData["GroupName"]</p>
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="card-body">
+
+                        
+
+                        <div class="form-outline">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                </div>
+                                <div class="col-sm-8 ">
+                                    <textarea class="form-control" id="txtMessage" rows="4"></textarea>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" id="btnSend" class="btn btn-info">Send To Message</button>
+                                </div>
+                            </div>
+                            <input hidden type="text" value="@userinfo.FullName" id="txtUser" />
+
+                            <input hidden type="text" value="/files/imgs/@userinfo.Image" id="imgPath" />
+                            <input hidden type="text" value="@UserId" id="UserId" />
+                            <input hidden type="text" value="@userinfo.Id" id="UserInfoID" />
+                            <input hidden type="text" value="@TempData["GroupID"]" id="groupID" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<script src="~/datatable/lib/jquery/dist/jquery.js"></script>
+<script src="~/chat/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+<script src="~/chat/js/admin.js"></script>

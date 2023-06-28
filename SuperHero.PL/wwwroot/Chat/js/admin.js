@@ -54,6 +54,59 @@ $("#btnSend").on("click", function () {
 
 /*end SendMessage*/
 
+
+/*start SendMessage*/
+connection.on("ReceiveToMessage", function ( message) {
+    var dateMsg = new Date();
+    var dateMean = dateMsg.getHours() + ":" + dateMsg.getMinutes() + ":" + dateMsg.getUTCDate();
+    //var ImgPath = document.getElementById("imgPath").value;
+    console.log(`ResverId: ${UserId}`);
+    if (UserId != UserID) {
+
+
+
+        var msg =
+            ` <div class="d-flex flex-row justify-content-end mb-4" >
+                                <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                                    <p class="small mb-0">${message}</p>
+                                </div>
+                                <img src="${Path}"
+                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                            </div>
+    `;
+    } else {
+        var msg = ` <div class="d-flex flex-row justify-content-start mb-4">
+                                <img src="${Path}"
+                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 me-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                    <p class="small mb-0">
+                                       ${message}
+                                    </p>
+                                </div>
+                            </div>`;
+    }
+
+
+
+
+    $("#list").append(msg);
+});
+
+connection.start();
+
+$("#btnSend").on("click", function () {
+    var user = $("#txtUser").val();
+    var message = $("#txtMessage").val();
+    var Path = $("#imgPath").val();
+    var UserId = $("#UserId").val();
+    var Userinfo = $("#UserInfoID").val();
+    var GroupId = $("#groupID").val();
+    connection.invoke("SendToMessage", user, message, Path, UserId, GroupId, Userinfo);
+    $("#txtMessage").val('');
+});
+
+/*end SendMessage*/
+
 /*start JoinGroup*/
 connection.on("GroupMessage", function (name, group) {  
     var msg = name + " joinned " + group; 

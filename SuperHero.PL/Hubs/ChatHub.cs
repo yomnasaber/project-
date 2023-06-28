@@ -31,5 +31,12 @@ namespace SuperHero.PL.Hubs
             await Clients.All.SendAsync("GroupSendToMessage", name, group, message);
         }
 
+        public async Task SendToMessage(string message, string ID)
+        {
+            await Clients.All.SendAsync("ReceiveToMessage", message);
+            Message message1 = new Message() { Text="dfre",When=DateTime.Now };
+            _context.Messages.Add(message1);
+            _context.SaveChanges();
+        }
     }
 }

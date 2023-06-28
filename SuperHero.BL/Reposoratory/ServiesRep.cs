@@ -650,12 +650,23 @@ namespace SuperHero.BL.Reposoratory
             return Chat;
         }
 
+        public async Task<IEnumerable<Message>> GetAllChatUser(int userId)
+        {
+            var Chat = await Db.Messages.Where(a => a.Id==userId).Include("Person").Include("message").ToListAsync();
+            return Chat;
+        }
         #endregion
 
         #region Notification
         public Task<IEnumerable<Notification>> GetNotifications(int nToUserId, bool bIsGetonlyUnread)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Message> GetBYUser(string Message)
+        {
+            var user = Db.Messages.Where(a => a.UserName == Message).FirstOrDefaultAsync();
+            return await user;
         }
         #endregion
     }

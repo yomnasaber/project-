@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SuperHero.BL.Interface;
+using System;
 
 namespace SuperHero.PL.Controllers
 {
@@ -7,12 +8,14 @@ namespace SuperHero.PL.Controllers
     {
         private readonly IServiesRep serviesRep;
         private readonly SignInManager<Person> signInManager;
+        private readonly UserManager<Person> userManager;
         private readonly IBaseRepsoratory<Group> Group;
-        public ChatHubController(IServiesRep serviesRep, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group)
+        public ChatHubController(IServiesRep serviesRep, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group, UserManager<Person> userManager)
         {
             this.serviesRep = serviesRep;
             this.signInManager = signInManager;
             this.Group = Group;
+            this.userManager = userManager;
         }
         public async Task<IActionResult> Index(int id)
         {
@@ -41,9 +44,39 @@ namespace SuperHero.PL.Controllers
             return RedirectToAction("GetAll", "Person");
 
         }
-        public IActionResult Index1()
+        public async Task<IActionResult> Index1(Message message)
         {
+            var currentUser = await userManager.GetUserAsync(User);
+            ViewBag.currentUser = currentUser.UserName;
+            if (ModelState.IsValid)
+            {
+                message.UserName = User.Identity.Name;
+                var person = await userManager.GetUserAsync(User);
+                message.PersonID = person.Id;
+                await serviesRep.GetBYUser(message.UserName);
+
+                var messageVM = await serviesRep.GetBYUser(message.UserName);
+
+
+                return View(messageVM);
+            }
             return View();
         }
+        public async Task<IActionResult> create(Message message)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                message.UserName = User.Identity.Name;
+                var person = await userManager.GetUserAsync(User);
+                message.PersonID = person.Id;
+                var messageVM= await serviesRep.GetBYUser(message.UserName);
+
+                
+                return View(messageVM);
+            }
+            return View();
+        }
+
     }
 }
