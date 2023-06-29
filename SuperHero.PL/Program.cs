@@ -116,8 +116,6 @@ app.UseSession();
 
 app.MapHub<ChatHub>("/chatHub");
 
-app.MapHub<Chat>("/chat");
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

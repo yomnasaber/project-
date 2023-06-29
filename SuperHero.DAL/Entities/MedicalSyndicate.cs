@@ -9,9 +9,9 @@ namespace SuperHero.DAL.Entities
 {
     public class MedicalSyndicate
     {
-        [Key]
+        [Key] 
         public int ID { get; set; }
         [Required]
-        public string? NumberSyndicate { get; set; }
+        public string NUMMBERSYNDICATE { get; set; }
     }
 }

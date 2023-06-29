@@ -78,7 +78,7 @@ namespace FRYMA_SuperHero.BL.Reposoratory
         {
             var data = await Db.Set<T>().FindAsync(id);
             return data;
-        }
+        } 
         public async Task<T> GetByID(int id)
         {
             var data = await Db.Set<T>().FindAsync(id);
@@ -127,6 +127,7 @@ namespace FRYMA_SuperHero.BL.Reposoratory
             #endregion
         #endregion
 
+
         #region Update
         public async Task Update(T entity)
         {
@@ -135,7 +136,13 @@ namespace FRYMA_SuperHero.BL.Reposoratory
             
         }
 
+       
+
+
+
         #endregion
+
+
 
     }
 }

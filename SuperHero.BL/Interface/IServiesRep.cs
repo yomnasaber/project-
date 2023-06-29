@@ -19,17 +19,16 @@ namespace SuperHero.BL.Interface
         Task<UserInfo> GetPatientBYID(string id);
         Task<Person> GetPersonBYID(string id);
         Task<Person> GetBYUserName(string Name);
-        Task<Message> GetBYUser(string Message);
-        Task<IEnumerable<Post>> GetALlPost(string include, string include1, string include2);
+        Task<IEnumerable<Post>> GetALlPost(string include,string include1, string include2);
         Task<Post> GetPostById(int id, string include1, string include2, string include3);
         Task<IEnumerable<Comment>> GetAll(int id, string include, string include1);
         Task<Person> GetPersonInclud(string includ, string id);
         Task<Person> GetPatientProfile(string id);
-        Task<ReactPost> GetBYUserAndPost(string id, int postid);
+        Task<ReactPost> GetBYUserAndPost(string id,int postid);
         Task EditPost(PostVM postVM);
         Task<Friends> GetBYUserFriends(string id, string personid);
         Task<IEnumerable<Friends>> GetFollower(string id);
-        Task<IEnumerable<Friends>> GetBYUserFriends(string personid);
+        Task<IEnumerable<Friends>> GetBYUserFriends( string personid);
         Task<bool> GetAll(int id, string personId);
         //Task<bool> FindByIdAsync(string personId, int groupId);
         Task<PersonGroup> FindById(string personId, int groupId);
@@ -62,7 +61,6 @@ namespace SuperHero.BL.Interface
         Task CreateRadiologyBYPatient(DoctorRadiology Radiology);
         Task<bool> GetMedicalSyndicate(string NummberSyndicate);
         Task<IEnumerable<ChatGroup>> GetAllChatGroup(int GroupId);
-        Task<IEnumerable<Message>> GetAllChatUser(int UserId);
-        Task<IEnumerable<Notification>> GetNotifications(int nToUserId, bool bIsGetonlyUnread);
+        Task<IEnumerable<PrivateChat>> GetAllPrivateChat(string SenderID, string ReciverID);
     }
 }

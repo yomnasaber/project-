@@ -23,6 +23,6 @@ namespace SuperHero.BL.DomainModelVM
         public IFormFile? Cv_Name { get; set; }
         public string? DectorID { get; set; }
         [ForeignKey("DectorID")]
-        public Person? Person { get; set; }
+        public Person ?Person { get; set; }
     }
 }

@@ -29,11 +29,7 @@
     <link href="~/course/css/ads.css" rel="stylesheet" />
     <link href="~/dashboard/patient.css" rel="stylesheet" />
     <link href="~/dashboard/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="~/datatable/datatables.net-buttons-bs5/buttons.bootstrap5.min.css" rel="stylesheet" />
-    <!--Start Notification-->
-    <link href="~/notification/ikr.notification.css" rel="stylesheet" />
-    <!--End Notification-->
-
+<link href="~/datatable/datatables.net-buttons-bs5/buttons.bootstrap5.min.css" rel="stylesheet" />
 @RenderSection("CSS",required:false)
 <title>@ViewData["Title"]</title>
 </head>
@@ -50,11 +46,6 @@
     </section>
 
     <script src="~/dashboard/lib/jquery/jquery.min.js"></script>
-
-    <!--Start Notification-->
-    <script src="~/notification/ikr.notificationplugin.js"></script>
-    <!--End Notification-->
-
   <partial name="~/views/adminlayout/_ScriptsLayout.cshtml" />
     @RenderSection("DatatablesJS",required:false)
     @RenderSection("JS",required:false)

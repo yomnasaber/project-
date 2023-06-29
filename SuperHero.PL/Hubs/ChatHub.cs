@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using NuGet.Protocol.Plugins;
 using SuperHero.DAL.Database;
+using SuperHero.DAL.Entities;
 
 namespace SuperHero.PL.Hubs
 {
@@ -20,23 +22,44 @@ namespace SuperHero.PL.Hubs
             _context.SaveChanges();
             await Clients.All.SendAsync("ReceiveMessage", user, message, Path, ID);
         }
+      
 
         public async Task JoinGroup(string group, string name)
         {
             await Clients.All.SendAsync("GroupMessage", name, group);
         }
-
+          
         public async Task SendToGroup(string group, string name, string message)
         {
             await Clients.All.SendAsync("GroupSendToMessage", name, group, message);
+           
         }
-
-        public async Task SendToMessage(string message, string ID)
+        public override Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("ReceiveToMessage", message);
-            Message message1 = new Message() { Text="dfre",When=DateTime.Now };
-            _context.Messages.Add(message1);
+            Groups.AddToGroupAsync(Context.ConnectionId, Context.User.Identity.Name);
+            return base.OnConnectedAsync();
+        }
+       
+        public Task SendMessageToGroup(string sender, string receiver, string message)
+        {
+            return Clients.Group(receiver).SendAsync("ReceiveMessage", sender, message);
+        }
+        public async Task SendToMessage(string userId, string message,string SenderID , string Path)
+        {
+            var Person = _context.Persons.Where(a => a.Id == SenderID).FirstOrDefault();
+
+            PrivateChat privateChat = new PrivateChat()
+            {
+                Message = message,
+                RecivierID = userId,
+                SenderID = SenderID,
+                Sender=Person
+
+            };
+            _context.PrivateChats.Add(privateChat);
             _context.SaveChanges();
+            await Clients.User(userId).SendAsync("ReceiveUser", userId, message, SenderID, Path);
+            await Clients.Caller.SendAsync("ReceiveUser", userId, message, SenderID, Path);
         }
     }
 }

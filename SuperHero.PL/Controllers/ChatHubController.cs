@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using SuperHero.BL.DomainModelVM;
 using SuperHero.BL.Interface;
-using System;
 
 namespace SuperHero.PL.Controllers
 {
@@ -8,16 +9,44 @@ namespace SuperHero.PL.Controllers
     {
         private readonly IServiesRep serviesRep;
         private readonly SignInManager<Person> signInManager;
-        private readonly UserManager<Person> userManager;
         private readonly IBaseRepsoratory<Group> Group;
-        public ChatHubController(IServiesRep serviesRep, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group, UserManager<Person> userManager)
-        {
+        private readonly IBaseRepsoratory<Person> _userManager;
+      
+        public ChatHubController(IServiesRep serviesRep, IBaseRepsoratory<Person> _userManager, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group) 
+        { 
             this.serviesRep = serviesRep;
             this.signInManager = signInManager;
             this.Group = Group;
-            this.userManager = userManager;
+            this._userManager = _userManager;
         }
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult>Index()
+        {
+            Random randomNumber = new Random();
+            int RnadomSession = randomNumber.Next(0, 955121135); 
+            HttpContext.Session.SetInt32("UserId", RnadomSession);
+            var PersonProfile = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+           
+            var data = await serviesRep.FindAllGroupById(PersonProfile.Id);
+            if (data.Count() != 0)
+            {
+                var FindIn = await serviesRep.FindById(PersonProfile.Id, Convert.ToInt32(data.FirstOrDefault().Group));
+                if (FindIn != null)
+                {
+                    var Chat = await serviesRep.GetAllChatGroup(Convert.ToInt32(FindIn.Group));
+                    var GroupName = await Group.GetByID(Convert.ToInt32(FindIn.Group));
+                    TempData["GroupName"] = GroupName.Name;
+                    TempData["GroupID"] = GroupName.ID;
+                    ListGroupVM listGroupVM = new ListGroupVM()
+                    {Chat = Chat,
+                    Groups =data
+                    };
+                    return View(listGroupVM);
+                }
+            }
+            return View(null);
+
+        }
+        public async Task<IActionResult> GetMessage(int id)
         {
             Random randomNumber = new Random();
             int RnadomSession = randomNumber.Next(0, 955121135);
@@ -38,45 +67,33 @@ namespace SuperHero.PL.Controllers
                         Chat = Chat,
                         Groups = data
                     };
-                    return View(listGroupVM);
+                    return View("Index", listGroupVM);
                 }
             }
             return RedirectToAction("GetAll", "Person");
-
         }
-        public async Task<IActionResult> Index1(Message message)
+        public IActionResult Index2(string Id)
         {
-            var currentUser = await userManager.GetUserAsync(User);
-            ViewBag.currentUser = currentUser.UserName;
-            if (ModelState.IsValid)
-            {
-                message.UserName = User.Identity.Name;
-                var person = await userManager.GetUserAsync(User);
-                message.PersonID = person.Id;
-                await serviesRep.GetBYUser(message.UserName);
-
-                var messageVM = await serviesRep.GetBYUser(message.UserName);
-
-
-                return View(messageVM);
-            }
+            TempData["PersonId"] = Id;
             return View();
         }
-        public async Task<IActionResult> create(Message message)
+        
+
+        public async Task<IActionResult> Chat(string Id)
         {
-           
-            if (ModelState.IsValid)
-            {
-                message.UserName = User.Identity.Name;
-                var person = await userManager.GetUserAsync(User);
-                message.PersonID = person.Id;
-                var messageVM= await serviesRep.GetBYUser(message.UserName);
+            
+            var user = await _userManager.GetByID(Id);
+            var PersonProfile = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
+            
+            var Chat = await serviesRep.GetAllPrivateChat(PersonProfile.Id, Id);
+            if (user == null)
+                return NotFound();
 
-                
-                return View(messageVM);
-            }
-            return View();
+            PrivateChatVM privateChatVM = new PrivateChatVM() { 
+                Chats = Chat,
+                Reciver = user
+            };
+            return View(privateChatVM);
         }
-
     }
 }

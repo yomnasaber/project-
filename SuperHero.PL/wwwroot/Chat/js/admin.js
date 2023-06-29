@@ -54,9 +54,6 @@ $("#btnSend").on("click", function () {
 
 /*end SendMessage*/
 
-
-
-
 /*start JoinGroup*/
 connection.on("GroupMessage", function (name, group) {  
     var msg = name + " joinned " + group; 

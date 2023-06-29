@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace SuperHero.DAL.Entities
         public int? groupId { get; set; }
         public string? PersonId { get; set; }
         public Person? Person { get; set; }
+
     }
 }
