@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using NToastNotify;
+using SuperHero.BL.Helper;
 using SuperHero.BL.Interface;
 using SuperHero.BL.Mapper;
 using SuperHero.BL.Reposoratory;
@@ -84,6 +86,16 @@ builder.Services.AddIdentity<Person, IdentityRole>(options =>
 }).AddEntityFrameworkStores<ApplicationContext>();
 
 
+//NToastNotifyToastr
+builder.Services.AddControllersWithViews().AddNToastNotifyNoty(new NToastNotify.NotyOptions()
+{
+    ProgressBar = true, // show the progress bar
+    Timeout = 50000, // notification will be disapear after 5000ms,
+    Theme = "mint" // Notify.Js theme name - you can find more theme from Notify.js website
+     
+});
+
+
 var app = builder.Build();
 
 var supportedCultures = new[] {
@@ -110,6 +122,8 @@ app.UseRequestLocalization(new RequestLocalizationOptions
                 new CookieRequestCultureProvider()
                 }
 });
+//Notification
+app.UseNToastNotify();
 
 app.UseSession();
 //AddSignalR

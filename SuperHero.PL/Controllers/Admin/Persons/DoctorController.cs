@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using SuperHero.BL.DomainModelVM;
 using SuperHero.BL.Helper;
 using SuperHero.BL.Interface;
@@ -25,10 +26,11 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         private readonly IBaseRepsoratory<City> city;
         private readonly IBaseRepsoratory<Governorate> governorate;
         private IConfiguration Configuration;
+        private readonly IToastNotification _toastNotification;
         #endregion
 
         #region Ctor
-        public DoctorController(UserManager<Person> userManager, IConfiguration Configuration, IMapper mapper, SignInManager<Person> signInManager, RoleManager<IdentityRole> roleManager, IServiesRep servis, IBaseRepsoratory<Person> person, IBaseRepsoratory<District> district, IBaseRepsoratory<City> city, IBaseRepsoratory<Governorate> governorate)
+        public DoctorController(UserManager<Person> userManager, IConfiguration Configuration, IMapper mapper, SignInManager<Person> signInManager, RoleManager<IdentityRole> roleManager, IServiesRep servis, IBaseRepsoratory<Person> person, IBaseRepsoratory<District> district, IBaseRepsoratory<City> city, IBaseRepsoratory<Governorate> governorate, IToastNotification toastNotification)
         {
             this.userManager = userManager;
             this.mapper = mapper;
@@ -40,6 +42,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             this.city = city;
             this.governorate = governorate;
             this.Configuration = Configuration;
+            _toastNotification = toastNotification;
         }
         #endregion
 
@@ -53,6 +56,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         [HttpPost]
         public async Task<IActionResult> CreateDoctor(PersonVM model)
         {
+            _toastNotification.AddSuccessToastMessage("Movie created successfully");
             try
             {
                 //Save Image Profile
@@ -92,6 +96,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
                 TempData["error"] = ex.Message;
             }
             TempData["Message"] = null;
+            
             return View("CreateDoctor", model);
         }
 
@@ -101,11 +106,13 @@ namespace SuperHero.PL.Controllers.Admin.Persons
         [HttpGet]
         public async Task<IActionResult> Edite(string ID)
         {
+            _toastNotification.AddSuccessToastMessage("Movie Edit successfully");
             //Get Doctor By Id
             var data = await person.GetByID(ID);
             //Map Doctor to PersonVM
             var result = mapper.Map<PersonVM>(data);
             TempData["Message"] = null;
+            
             return View(result);
         }
         [HttpPost]
@@ -132,6 +139,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
                 TempData["error"] = ex.Message;
             }
             TempData["Message"] = null;
+            _toastNotification.AddSuccessToastMessage("Movie Edit successfully");
             return View("Edite", model);
         }
         #endregion
@@ -243,6 +251,7 @@ namespace SuperHero.PL.Controllers.Admin.Persons
             return View();
         }
         #endregion
+
         #region Private Methods
 
         private async Task<bool> SendConfitmEmail(string Email)

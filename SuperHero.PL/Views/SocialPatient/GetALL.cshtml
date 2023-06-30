@@ -50,7 +50,7 @@
     </div>
 
 }
-    @section Follower{
+@section Follower{
     <div class="iconheader">
         <i class="fa-solid fa-share fa-beat"></i>
     </div>
@@ -66,7 +66,7 @@
         <h2>@Model.Allfriends.Where(a=> a.personId == userinfo.Id && a.IsFriend).ToList().Count <span> Following</span> </h2>
     </div>
 }
-    @section Following{
+@section Following{
     <div class="iconheader">
         <i class="fa-solid fa-share fa-flip-horizontal"></i>
     </div>
@@ -81,7 +81,7 @@
         <h2>@Model.Allfriends.Where(a=> a.FriendId == userinfo.Id  && a.IsFriend).ToList().Count <span>Follower</span> </h2>
     </div>
     }
-    @section Post{
+@section Post{
     <div class="iconheader">
         <i class="fa-sharp fa-solid fa-thumbtack fa-bounce"></i>
     </div>
@@ -96,11 +96,18 @@
         <h2>@Model.post.Count() <span>Post</span> </h2>
     </div>
     }
-    @section Followers{
+@section Followers{
     <a style=" text-decoration: none;" href="javascript:;" data-url="/Profile/Friend/@userinfo.Id" data-update="true" class="activ btn-btn-sucess js-render-modal">Following</a>
     <a style=" text-decoration: none;" href="javascript:;" data-url="/Profile/Follower/@userinfo.Id" data-update="true" class=" js-render-modal">Follwers</a>
 
     }
+<form style="display:flex;margin-top:20px; justify-content:center;align-content:center" id="searchForm">
+    <input style="border:none;" type="text" id="query" name="query" />
+    <button style="margin-left:10px" type="submit"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+    <a style="color:rgb(252, 3, 3);margin-left:60px;cursor:pointer;margin-left:4px;height:53px;border-radius:5px; padding:11px ;border:2px solid rgb(252, 3, 3) ;" id="hid"><i style="font-size:30px;" class="fa-sharp fa-solid fa-trash fa-bounce"></i></a>
+
+</form>
+<div id="searchResults"></div>
 @foreach (var post in Model.post)
 {
     <table style="width:100%">
@@ -340,7 +347,7 @@
             </style>
 
         }
-        @section JS{
+    @section JS{
             <script src="~/dashboard/lib/jquery/jquery.min.js"></script>
 
             <script src="~/dashboard/lib/plugins.bundle.js"></script>
@@ -447,8 +454,34 @@
                 })
 
             </script>
+            <script>
+                $(function () {
+                    $('#searchForm').submit(function (event) {
+                        event.preventDefault();
+                        var query = $('#query').val();
 
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Search", "Search")',
+                            data: { query: query },
+                            success: function (data) {
+                                $('#searchResults').html(data);
+                            }
+                        });
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+
+                    $('#hid').click(function () {
+                        $('#search-container').hide();
+                        $('#query').val('');
+                    });
+                });
+
+            </script>
         }
-        @section JqueryValidation{
+    @section JqueryValidation{
             <partial name="~/views/person/Partial/Script.cshtml" />
         }

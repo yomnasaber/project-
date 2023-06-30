@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using SuperHero.BL.DomainModelVM;
 using SuperHero.BL.Interface;
 
@@ -11,16 +12,18 @@ namespace SuperHero.PL.Controllers
         private readonly SignInManager<Person> signInManager;
         private readonly IBaseRepsoratory<Group> Group;
         private readonly IBaseRepsoratory<Person> _userManager;
-      
-        public ChatHubController(IServiesRep serviesRep, IBaseRepsoratory<Person> _userManager, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group) 
+        private readonly IToastNotification _toastNotification;
+        public ChatHubController(IServiesRep serviesRep, IBaseRepsoratory<Person> _userManager, SignInManager<Person> signInManager, IBaseRepsoratory<Group> Group, IToastNotification toastNotification) 
         { 
             this.serviesRep = serviesRep;
             this.signInManager = signInManager;
             this.Group = Group;
             this._userManager = _userManager;
+            _toastNotification = toastNotification;
         }
         public async Task<IActionResult>Index()
         {
+            _toastNotification.AddSuccessToastMessage("Movie NewMessageGroup successfully");
             Random randomNumber = new Random();
             int RnadomSession = randomNumber.Next(0, 955121135); 
             HttpContext.Session.SetInt32("UserId", RnadomSession);
@@ -41,13 +44,16 @@ namespace SuperHero.PL.Controllers
                     Groups =data
                     };
                     return View(listGroupVM);
+                   
                 }
             }
+            
             return View(null);
 
         }
         public async Task<IActionResult> GetMessage(int id)
         {
+            _toastNotification.AddSuccessToastMessage("Movie GetMessage successfully");
             Random randomNumber = new Random();
             int RnadomSession = randomNumber.Next(0, 955121135);
             HttpContext.Session.SetInt32("UserId", RnadomSession);
@@ -70,6 +76,7 @@ namespace SuperHero.PL.Controllers
                     return View("Index", listGroupVM);
                 }
             }
+            
             return RedirectToAction("GetAll", "Person");
         }
         public IActionResult Index2(string Id)
@@ -81,7 +88,7 @@ namespace SuperHero.PL.Controllers
 
         public async Task<IActionResult> Chat(string Id)
         {
-            
+            _toastNotification.AddSuccessToastMessage("Movie Chat successfully");
             var user = await _userManager.GetByID(Id);
             var PersonProfile = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
             
@@ -93,6 +100,7 @@ namespace SuperHero.PL.Controllers
                 Chats = Chat,
                 Reciver = user
             };
+            
             return View(privateChatVM);
         }
     }

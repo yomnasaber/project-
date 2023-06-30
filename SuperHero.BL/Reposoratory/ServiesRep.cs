@@ -655,5 +655,15 @@ namespace SuperHero.BL.Reposoratory
             return Chat;
         }
         #endregion
+
+        #region Search
+        public async Task<IEnumerable<Person>> Search(string query)
+        {
+            var searchResults = await Db.Persons
+             .Where(p => p.FullName.Contains(query))
+            .ToListAsync();
+            return searchResults;
+        }
+        #endregion
     }
 }
