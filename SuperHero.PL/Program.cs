@@ -92,7 +92,7 @@ builder.Services.AddControllersWithViews().AddNToastNotifyNoty(new NToastNotify.
     ProgressBar = true, // show the progress bar
     Timeout = 50000, // notification will be disapear after 5000ms,
     Theme = "mint" // Notify.Js theme name - you can find more theme from Notify.js website
-     
+
 });
 
 
@@ -129,6 +129,8 @@ app.UseSession();
 //AddSignalR
 
 app.MapHub<ChatHub>("/chatHub");
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

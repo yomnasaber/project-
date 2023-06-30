@@ -88,7 +88,7 @@ namespace SuperHero.PL.Controllers
 
         public async Task<IActionResult> Chat(string Id)
         {
-            _toastNotification.AddSuccessToastMessage("Movie Chat successfully");
+            _toastNotification.AddSuccessToastMessage("Movie PrivateChat successfully");
             var user = await _userManager.GetByID(Id);
             var PersonProfile = await signInManager.UserManager.FindByNameAsync(User.Identity.Name);
             
