@@ -29,7 +29,7 @@
 
                                     <img src="~/Files/Imgs/@item.Image" alt="Profile 1">
                                 }
-                                
+
                             </div>
                             <div class="profile-details">
                                 <h3 style="color:#5f5d5d"><strong>@item.FullName </strong><i style="color:#1EB2A6" class="fas fa-check-circle"></i></h3>
@@ -48,15 +48,15 @@
 }
 else
 {
-    <div style="text-align:center" class="alert alert-success" role="alert">
-       No results found.
+    <br />
+    <div id="search-container" style="text-align:center" class="alert alert-success" role="alert">
+        No results found.
     </div>
 }
 <style>
     .search-container {
         max-width: 400px;
         margin: 0 auto;
-
     }
 
     #search-input {
@@ -64,8 +64,8 @@ else
         padding: 8px;
         margin-bottom: 10px;
         font-size: 16px;
-        border:none;
-        background:white
+        border: none;
+        background: white
     }
 
     #profile-list {
@@ -79,7 +79,7 @@ else
         padding: 10px;
         border: 1px solid #ccc;
         margin-bottom: 5px;
-        background:white;
+        background: white;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add box shadow effect */
     }
 
@@ -89,20 +89,21 @@ else
         margin-right: 10px;
     }
 
-    .profile-viwer{
-        text-decoration:none;
-        color:white;
-        padding:7px;
+    .profile-viwer {
+        text-decoration: none;
+        color: white;
+        padding: 7px;
         background: #1EB2A6;
-        border-radius:10px
+        border-radius: 10px
     }
-        .profile-image img {
-            width: 90%;
-            height: 90%;
-            object-fit: cover;
-            border-radius: 50%;
+
+    .profile-image img {
+        width: 90%;
+        height: 90%;
+        object-fit: cover;
+        border-radius: 50%;
         border: 2px solid #1EB2A6
-        }
+    }
 
     .profile-details {
         flex: 1;

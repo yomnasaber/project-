@@ -7,6 +7,56 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\ascom\.nuget\packages\ntoastnotify\8.0.0\contentFiles\any\net6.0\wwwroot\noty.js" />
+    <Content Remove="C:\Users\ascom\.nuget\packages\ntoastnotify\8.0.0\contentFiles\any\net6.0\wwwroot\toastr.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\SecondPage\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.esm.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\SecondPage\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\SecondPage\vendor\Image\About us page-bro.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Coding workshop-pana.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Dementia-rafiki.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Doctor Profile\Oxygen mask-pana.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Doctors-pana.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Doctors-rafiki.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\DoctorsLogin.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Insurance-amico.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Mask for the deaf-rafiki.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Messaging-amico.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Money income-rafiki.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\Oxygen mask-pana.svg" />
+    <None Include="wwwroot\SecondPage\vendor\Image\World Down Syndrome day-amico.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.143" />
     <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.3" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />

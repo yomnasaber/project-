@@ -665,5 +665,46 @@ namespace SuperHero.BL.Reposoratory
             return searchResults;
         }
         #endregion
+
+        #region NotificationMessage
+        public async Task<List<NotificationMessage>> GetNotiFications(Expression<Func<NotificationMessage, bool>> filter = null)
+        {
+            if (filter != null)
+            {
+                var data = await Db.NotificationMessages.Where(filter).ToListAsync();
+                return data;
+
+            }
+            else
+            {
+                return await Db.NotificationMessages.ToListAsync();
+            }
+        }
+
+        public async Task<bool> IsRead(string UserId)
+        {
+            var data = await Db.NotificationMessages.Where(x => x.ReciverID == UserId).ToListAsync();
+            foreach (var item in data)
+            {
+                item.Show = true;
+            }
+
+            try
+            {
+
+                await Db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return
+                    false;
+                throw ex;
+            }
+
+
+        }
+
+        #endregion
     }
 }

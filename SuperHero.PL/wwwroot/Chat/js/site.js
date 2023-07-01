@@ -1,10 +1,11 @@
 ﻿var UserId = document.getElementById("UserId").value;
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-connection.on("ReceiveUser", function (userId, message, SenderID, Path) {
+connection.on("ReceiveUser", function (userId, message, SenderID, Path, NameUser) {
+
     // Handle received message
     if (UserId == SenderID) {
-       
+
         if (userId != SenderID) {
 
 
@@ -16,6 +17,7 @@ connection.on("ReceiveUser", function (userId, message, SenderID, Path) {
                                 </div>
                                 <img src="${Path}"
                                      alt="avatar 1" style="width: 45px; height: 100%;">
+                                    
                             </div>
     `;
         } else {
@@ -26,11 +28,12 @@ connection.on("ReceiveUser", function (userId, message, SenderID, Path) {
                                     <p class="small mb-0">
                                        ${message}
                                     </p>
+                                    
                                 </div>
                             </div>`;
         }
 
-    } 
+    }
     if (userId == UserId) {
         var msg = ` <div class="d-flex flex-row justify-content-start mb-4">
                                 <img src="${Path}"
@@ -42,17 +45,18 @@ connection.on("ReceiveUser", function (userId, message, SenderID, Path) {
                                 </div>
                             </div>`;
     }
-    
+
 
     $("#list").append(msg);
+
 });
 
 connection.start().catch(function (err) {
     console.error(err.toString());
 });
 
-function sendToMessage(userId, message, SenderID, Path) {
-    connection.invoke("SendToMessage", userId, message, SenderID,Path).catch(function (err) {
+function sendToMessage(userId, message, SenderID, Path, NameUser) {
+    connection.invoke("SendToMessage", userId, message, SenderID, Path, NameUser).catch(function (err) {
         console.error(err.toString());
     });
 }
